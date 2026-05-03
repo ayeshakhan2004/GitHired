@@ -1,133 +1,76 @@
-# Githired — AI Career Execution Agent
+# ⬛ 🟩 🟩 🟩 ⬛ GitHired ⬛ 🟩 🟩 🟩 ⬛
 
-> Diagnostic software for tech students. Analyze your GitHub, LinkedIn, and resume against a target job role — get a scored audit and prioritized action plan in under 60 seconds.
 
-![Stack](https://img.shields.io/badge/Next.js-14-black) ![Stack](https://img.shields.io/badge/Tailwind-3-cyan) ![Stack](https://img.shields.io/badge/Claude-claude--opus--4-purple)
+**Turning GitHub profiles into hirable assets using the power of Google Gemini.**
+
+[![Live Demo](https://img.shields.io/badge/Live_Demo-View_Project-blue?style=for-the-badge)](https://githired-195375835899.europe-west1.run.app)
+[![Tech Stack](https://img.shields.io/badge/Built_with-Next.js_%7C_Gemini_API-black?style=for-the-badge&logo=next.js)](#)
+[![Vibe Coding](https://img.shields.io/badge/IDE-Google_Antigravity-purple?style=for-the-badge)](#)
+
+## 💡 What is GitHired?
+GitHired is an AI-powered tool designed to bridge the gap between developers and recruiters. By simply entering a GitHub username, GitHired fetches a developer's public repositories, commit history, and language statistics, and uses AI to instantly generate a comprehensive, hirable summary of their technical strengths and project scopes.
+
+This project was developed exclusively for the **GDG AI Seekho Vibe Coding Competition**. 
+
+## 🌊 The "Vibe Coding" Journey
+This project wasn't just built *with* AI; it was built *by* orchestrating AI. Embracing the core philosophy of the Vibe Coding competition, the development process relied on three distinct pillars of Google's AI ecosystem:
+
+### 1. Google Antigravity (The Builder)
+The entire application was "vibe coded" using **Google Antigravity** as the primary agentic IDE. Instead of manually writing every line of Next.js code, I utilized Antigravity's agent manager and Gemini reasoning models to collaboratively architect the app, generate React components, handle state management, and troubleshoot deployment errors in real-time. 
+
+### 2. Google AI Studio (The Sandbox)
+Before writing a single line of integration code, the core AI logic was rigorously tested and refined inside **Google AI Studio**. This served as the prompting sandbox where I engineered the exact system instructions and context windows needed to ensure the AI accurately interpreted raw GitHub JSON data without hallucinating skills.
+
+### 3. Gemini API (The Engine)
+While Antigravity built the app, the **Gemini API** powers the live production environment. The application dynamically passes the fetched GitHub data to the Gemini API, which processes the information on the fly to return the tailored, formatted developer insights displayed to the user.
 
 ---
 
-## Quick Start
+## ✨ Key Features
+* **Instant GitHub Analysis:** Fetch real-time data from any public GitHub profile via the GitHub REST API.
+* **AI-Powered Insights:** Leverages the Gemini API to summarize coding patterns, primary languages, and technical expertise.
+* **Seamless User Experience:** Built with Next.js for a responsive, lightning-fast web interface.
+* **Cloud Deployed:** Fully containerized via Buildpacks and deployed securely on Google Cloud Run.
 
-### 1. Install dependencies
+## 🛠️ Tech Stack
+* **Frontend/Backend Framework:** Next.js (React, Node.js)
+* **Agentic IDE:** Google Antigravity
+* **AI Integration:** Google Gemini API & Google AI Studio
+* **Deployment & Hosting:** Google Cloud Run, Google Cloud Build
+* **Version Control:** Git & GitHub
+
+---
+
+## 💻 How to Run Locally
+
+If you'd like to test GitHired on your local machine, follow these steps:
+
+**1. Clone the repository**
+```bash
+git clone [https://github.com/ayeshakhan2004/GitHired.git](https://github.com/ayeshakhan2004/GitHired.git)
+cd GitHired
+```
+
+**2. Install dependencies**
+
 ```bash
 npm install
 ```
 
-### 2. Set up environment variables
-```bash
-cp .env.example .env.local
-```
-Open `.env.local` and add your keys (see section below).
+**3. Set up environment variables**
+Create a new file named .env.local in the root directory:
 
-### 3. Run the dev server
+```bash
+GEMINI_API_KEY=your_gemini_api_key_here
+```
+
+**4. Start the development server**
+
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+*Open http://localhost:3000 with your browser to see the app in action!*
 
----
-
-## Environment Variables
-
-### Required
-| Variable | Description |
-|---|---|
-| `GEMINI_API_KEY` | Your Claude API key from [console.anthropic.com](https://console.anthropic.com) |
-
-### Recommended
-| Variable | Description |
-|---|---|
-| `GITHUB_TOKEN` | GitHub personal access token — raises rate limit from 60 to 5000 req/hr. Create at github.com/settings/tokens (no scopes needed) |
-
-### Optional (LinkedIn)
-| Variable | Description |
-|---|---|
-| `RAPIDAPI_KEY` | Your RapidAPI key |
-| `RAPIDAPI_LINKEDIN_HOST` | The host of your chosen LinkedIn scraper endpoint |
-
-**How to set up LinkedIn scraping:**
-1. Go to [rapidapi.com](https://rapidapi.com) and search "LinkedIn Profile Data"
-2. Subscribe to any LinkedIn scraper (popular options: "Fresh LinkedIn Profile Data", "LinkedIn Data API", "Linkedin Profiles")
-3. Copy the `X-RapidAPI-Host` value shown in the endpoint docs
-4. Set `RAPIDAPI_KEY` and `RAPIDAPI_LINKEDIN_HOST` in `.env.local`
-
-**If LinkedIn keys are not set:** The app still works — it will analyze GitHub and resume only, and note that LinkedIn data was unavailable.
-
----
-
-## Project Structure
-
-```
-githired/
-├── app/
-│   ├── layout.tsx              # Root layout, Google Fonts
-│   ├── page.tsx                # Entry — routes input → loading → dashboard
-│   ├── globals.css             # Design system CSS variables + utilities
-│   └── api/diagnose/route.ts  # POST endpoint: ingest + Claude diagnostic
-├── components/
-│   ├── onboarding/
-│   │   ├── InputForm.tsx       # 4-field onboarding form with validation
-│   │   └── LoadingSequence.tsx # Multi-step animated loading screen
-│   └── dashboard/
-│       ├── Dashboard.tsx       # Shell: sidebar nav + section layout
-│       ├── ExecutiveSummary.tsx# Animated circular gauge + gap analysis bar
-│       ├── LinkedInVisualizer.tsx # LinkedIn profile replica + warning badges
-│       ├── GitHubAudit.tsx     # GitHub profile replica + flagged repos + projects
-│       ├── ATSChecker.tsx      # Pass/fail ATS checklist + keyword match
-│       └── ExecutionRoadmap.tsx# 3-phase vertical stepper with checkboxes
-├── lib/
-│   ├── github.ts               # GitHub REST API client
-│   ├── linkedin.ts             # RapidAPI LinkedIn client (pluggable)
-│   └── claudeClient.ts         # Google Gemini API + tool_use schema
-├── types/
-│   └── diagnostic.ts           # All TypeScript interfaces
-└── .env.example
-```
-
----
-
-## Dashboard Sections
-
-| Section | What it does |
-|---|---|
-| **A — Executive Summary** | Animated 0–100 readiness score gauge + gap-to-hireable progress bar |
-| **B — LinkedIn Teardown** | Visual LinkedIn profile replica with clickable warning badges + exact rewrites |
-| **C — GitHub Audit** | Flags tutorial clones, suggests 2 role-specific projects to build |
-| **D — ATS Resume Check** | Pass/fail checklist + keyword match % + found/missing keywords |
-| **E — Execution Roadmap** | 3-phase action plan (immediate / projects / networking) with checkboxes |
-
----
-
-## Deployment (Vercel)
-
-```bash
-npx vercel
-```
-
-Set environment variables in the Vercel dashboard under Project → Settings → Environment Variables.
-
-Set `maxDuration = 120` is already configured in the API route for Vercel's extended timeout.
-
----
-
-## Customizing the LinkedIn Scraper
-
-The LinkedIn client is in `lib/linkedin.ts`. The `normalizeLinkedInResponse()` function maps raw API fields to the app's internal schema. Different RapidAPI endpoints return different field names — edit the mappings in that function to match your chosen endpoint.
-
-Common field variations:
-- Name: `fullName`, `firstName + lastName`, `name`
-- Headline: `headline`, `title`, `jobTitle`
-- About: `summary`, `about`, `description`
-- Photo: `profilePicture`, `photoUrl`, `avatar`
-
----
-
-## Tech Stack
-
-- **Framework**: Next.js 14 (App Router)
-- **Styling**: Tailwind CSS v3 + custom CSS variables
-- **Animation**: Framer Motion
-- **Icons**: Lucide React
-- **AI**: Google Gemini (claude-opus-4-5) via tool_use for structured JSON
-- **Data**: GitHub REST API v3 + RapidAPI LinkedIn Scraper
+## 🤝 Creator
+Ayesha Khan 
