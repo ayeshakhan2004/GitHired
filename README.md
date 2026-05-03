@@ -1,4 +1,5 @@
-# 🚀 GitHired
+# ⬛ 🟩 🟩 🟩 ⬛ GitHired ⬛ 🟩 🟩 🟩 ⬛
+
 
 **Turning GitHub profiles into hirable assets using the power of Google Gemini.**
 
